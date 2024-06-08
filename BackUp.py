@@ -1,19 +1,22 @@
 from zipfile import ZipFile
 from pathlib import Path
 
-#Path of folder/file to zip
-file_to_zip = './Web'
+#Folder/file to zip
+folder_to_zip = './Dummy-Folder'
+#Path to unzipped files
+loc_to_unzip = './UnzippedFiles'
+#Folder to unzip
+folder_to_unzip = './ZippedFiles/Web.zip'
 #Path to zip file that is to be unzipped
-file_to_unzip = './UnzippedFiles'
-file_of_zip = './ZippedFiles/Web.zip'
+loc_of_zip = './ZippedFiles/Web.zip'
 
 
-folder_path_to_zip = Path(file_to_zip)
-
+folder_path_to_zip = Path(folder_to_zip)
 
 
 
 
+#For Compressing a File
 def ZipTheFile(srcLocation, desLocation):
     print('\n\n\nSelecting file to compress...')
     print(f'Source file -  ${srcLocation}')
@@ -24,20 +27,23 @@ def ZipTheFile(srcLocation, desLocation):
             zip.write(file,file.relative_to(srcLocation.parent))
         print(f"Compressing finished at ${desLocation}\n\n\n")
 
+
+#For Decompressing a File
 def UnzipTheFile(fromLocation, toLocation):
     print('\n\n\nSelecting file to decompress...')
     print(f'Source file -  ${fromLocation}')
     print(f'Destination file - ${toLocation}')
     print('DeCompressing...')
-    with ZipFile(fromLocation,'r') as zip:
-        zip.extractall(path=toLocation)
+    
+    with ZipFile(fromLocation,'r') as zip_ref:
+        zip_ref.extractall(path=toLocation)
         print(f"DeCompressing finished at ${toLocation}\n\n\n")
-
+   
 
 def main():
     
-    #ZipTheFile(folder_path_to_zip,file_of_zip)
-    UnzipTheFile(file_to_unzip,file_to_unzip)
+    ZipTheFile(folder_path_to_zip,loc_of_zip)
+    UnzipTheFile(loc_of_zip,loc_to_unzip)
     
 
 if __name__ == '__main__':
